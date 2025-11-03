@@ -16,8 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { useUser } from "@clerk/nextjs";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/landing/navbar";
 import {
@@ -192,7 +191,6 @@ export default function Home() {
     "standard"
   );
 
-  const { isSignedIn, isLoaded, user } = useUser();
   const { toast } = useToast();
 
   const [isDownloading, setIsDownloading] = useState(false);
@@ -270,20 +268,6 @@ export default function Home() {
     }
   }, [generatedLogo, companyName, toast]);
 
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <RefreshCw className="h-8 w-8 animate-spin text-blue-600" />
-          <p className="text-slate-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isSignedIn) {
-    return redirect("/");
-  }
 
   return (
     <div className="max-h-screen">

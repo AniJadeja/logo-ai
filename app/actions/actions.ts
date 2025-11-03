@@ -53,34 +53,6 @@ const styleLookup: { [key: string]: string } = {
 export async function generateLogo(formData: z.infer<typeof FormSchema>) {
   'use server';
   try {
-    const user = await currentUser();
-    if (!user) {
-      return { success: false, error: 'User not authenticated' };
-    }
-
-    const { success: rateLimitSuccess, remaining } = await rateLimit.limit(user.id);
-    
-    await (await clerkClient()).users.updateUserMetadata(user.id, {
-      unsafeMetadata: {
-        remaining,
-      },
-    });
-
-    console.log("your remaining logo generation limit is", remaining)
-    // if (remaining === 1) {
-    //   await toast({
-    //     title: "Warning",
-    //     description: "You only have 1 logo generation remaining",
-    //     variant: "destructive",
-    //   });
-    // }
-
-    if (!rateLimitSuccess) {
-      return { 
-        success: false, 
-        error: "You've reached your logo generation limit. Please try again later." 
-      };
-    }
 
     const validatedData = FormSchema.parse(formData);
     
@@ -97,20 +69,20 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
 
     const imageUrl = response.data[0].url || "";
 
-    const DatabaseData: InsertLogo = {
-      image_url: imageUrl,
-      primary_color: validatedData.primaryColor,
-      background_color: validatedData.secondaryColor,
-      username: user.username ?? user.firstName ?? 'Anonymous',
-      userId: user.id,
-    };
+    // const DatabaseData: InsertLogo = {
+    //   image_url: imageUrl,
+    //   primary_color: validatedData.primaryColor,
+    //   background_color: validatedData.secondaryColor,
+    //   username: user.username ?? user.firstName ?? 'Anonymous',
+    //   userId: user.id,
+    // };
 
-    try {
-      await db.insert(logosTable).values(DatabaseData);
-    } catch (error) {
-      console.error('Error inserting logo into database:', error);
-      throw error;
-    }
+    // try {
+    //   await db.insert(logosTable).values(DatabaseData);
+    // } catch (error) {
+    //   console.error('Error inserting logo into database:', error);
+    //   throw error;
+    // }
     
     return { 
       success: true, 

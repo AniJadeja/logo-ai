@@ -3,12 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { IconPointerFilled, IconSparkles } from "@tabler/icons-react";
+import { IconSparkles } from "@tabler/icons-react";
 import { LogoCarousel } from "../ui/logo-carousel";
 import Gradient from "../gradient";
 import FloatingIcons from "../floating-icons";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { domain } from "@/lib/domain";
 import { cn } from "@/lib/utils";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import AnimatedShinyText from "../ui/animated-shiny-text";
@@ -54,24 +52,6 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex sm:flex-row flex-col w-full md:w-auto items-center gap-4">
-            <SignedIn>
-              <Link href="/generate" className="w-full md:w-auto">
-                <Button className="h-8 w-full px-6 py-5 transition-all hover:opacity-90 hover:scale-105">
-                  Try for free! <IconPointerFilled className="w-4 h-4" />
-                </Button>
-              </Link>
-            </SignedIn>
-            <SignedOut>
-              <SignInButton
-                signUpForceRedirectUrl={`${domain}/generate`}
-                forceRedirectUrl={`${domain}/generate`}
-                mode="modal"
-              >
-                <Button className="h-8 w-full px-6 py-5 transition-all hover:opacity-90 hover:scale-105">
-                  Try for free! <IconPointerFilled className="w-4 h-4" />
-                </Button>
-              </SignInButton>
-            </SignedOut>
             <Link href="/gallery" className="w-full md:w-auto">
               <Button
                 variant="outline"

@@ -1,8 +1,4 @@
 "use client";
-import { SignedIn, UserButton } from "@clerk/nextjs";
-import { domain } from "@/lib/domain";
-import { SignInButton } from "@clerk/nextjs";
-import { SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
@@ -33,23 +29,6 @@ export default function Navbar() {
               <LoaderIcon className="animate-spin" />
             </Button>
           )}
-          <SignedOut>
-            <SignInButton
-              signUpForceRedirectUrl={`${domain}/generate`}
-              forceRedirectUrl={`${domain}/generate`}
-              mode="modal"
-            >
-              <Button className="text-sm">Sign In</Button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-            {/* <Link href="/generate">
-              <Button className="text-white">
-                Get Started
-              </Button> 
-            </Link> */}
-          </SignedIn>
         </div>
       </nav>
     </header>
